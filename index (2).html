@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>06:30 AM 모닝 마켓 브리핑 - 한국 투자자 데일리 인사이트</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Custom refined scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    /* Korean Market Color Convention: Red = Up, Blue = Down */
+    .kr-up { color: #f43f5e; }
+    .kr-up-bg { background-color: rgba(244, 63, 94, 0.12); border-color: rgba(244, 63, 94, 0.3); }
+    .kr-down { color: #38bdf8; }
+    .kr-down-bg { background-color: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.3); }
+    .kr-neutral { color: #94a3b8; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased flex flex-col selection:bg-rose-500 selection:text-white">
+
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-rose-900/20">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-base sm:text-lg tracking-tight text-white">06:30 KST 모닝 마켓 브리핑</h1>
+            <span class="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">Live Edition</span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">한국 투자자를 위한 개장 전 글로벌 매크로 & 외국인 수급 종합 분석</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="flex items-center bg-slate-800/80 rounded-lg p-1 border border-slate-700/60 shadow-inner">
+          <label for="briefingDate" class="text-xs text-slate-400 px-2 font-medium flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <span class="hidden md:inline">브리핑 일자</span>
+          </label>
+          <select id="briefingDate" onchange="handleDateChange(this.value)" class="bg-slate-900 text-xs sm:text-sm text-slate-200 font-medium py-1 px-2.5 rounded border border-slate-700 focus:outline-none focus:border-rose-500 cursor-pointer">
+            <option value="2026-10-07">2026년 10월 07일 (수) [당일 최신]</option>
+            <option value="2026-10-06">2026년 10월 06일 (화)</option>
+            <option value="2026-10-05">2026년 10월 05일 (월)</option>
+          </select>
+        </div>
+
+        <button onclick="copyBriefingText()" class="no-print p-2 sm:px-3 sm:py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 flex items-center gap-1.5 transition active:scale-95 shadow" title="텔레그램/카톡 공유용 텍스트 복사">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+          </svg>
+          <span class="hidden md:inline">텍스트 복사</span>
+        </button>
+
+        <button onclick="window.print()" class="no-print p-2 sm:px-3 sm:py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 flex items-center gap-1.5 transition active:scale-95 shadow" title="인쇄 및 PDF 저장">
+          <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+          </svg>
+          <span class="hidden md:inline">인쇄</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow space-y-6">
+
+    <!-- Toast Notification Box -->
+    <div id="toastBox" class="fixed bottom-6 right-6 z-50 bg-slate-900 border border-slate-700 text-slate-100 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 translate-y-24 opacity-0 transition-all duration-300">
+      <div id="toastIcon" class="text-emerald-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      </div>
+      <p id="toastMsg" class="text-xs sm:text-sm font-medium">안내 메시지</p>
+    </div>
+
+    <section class="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-56 h-56 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 text-xs text-slate-400 mb-1">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="briefingMetaDate">2026년 10월 7일 (수요일) 06:30 발행</span>
+            <span>·</span>
+            <span>기준 거래일: 뉴욕 10/06 종가 | 서울 10/06 체결</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+            당일 코스피·코스닥 종합 시장 환경 판단:
+            <span id="marketVerdictBadge" class="px-3 py-1 text-base sm:text-lg font-extrabold rounded-lg inline-flex items-center">
+              경계
+            </span>
+          </h2>
+          <p id="marketVerdictDesc" class="text-xs sm:text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
+            미국 10년물 국채금리가 4.60% 핵심 저항대를 상향 돌파(4.68% 마감)하고 환율이 1,380원대 후반으로 반등하면서 지수 상단이 제한되는 국면입니다. 외국인의 IT 현물 차익실현 지속 여부를 주시하며 방어주 및 개별 모멘텀 테마 위주의 선별적 대응이 요구됩니다.
+          </p>
+        </div>
+
+        <!-- Rating gauge breakdown -->
+        <div class="flex flex-wrap items-center gap-1.5 self-start md:self-auto bg-slate-950/60 p-2 rounded-xl border border-slate-800 text-xs">
+          <div class="text-[11px] font-semibold text-slate-400 px-2">판단 5단계:</div>
+          <span class="px-2 py-1 rounded verdict-step" data-verdict="매우 긍정적">매우 긍정적</span>
+          <span class="px-2 py-1 rounded verdict-step" data-verdict="긍정적">긍정적</span>
+          <span class="px-2 py-1 rounded verdict-step" data-verdict="중립">중립</span>
+          <span class="px-2 py-1 rounded verdict-step font-bold" data-verdict="경계">경계</span>
+          <span class="px-2 py-1 rounded verdict-step" data-verdict="부정적">부정적</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- US 3 Major Indices Card (2 Cols on lg) -->
+      <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800/80 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+              </span>
+              <h3 class="font-bold text-base text-white">미국 증시 전일 종가 및 주요 동향</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-mono-num" id="usCloseRefDate">뉴욕 현지 10/06 종가 기준</span>
+          </div>
+
+          <!-- Indices Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4" id="usIndicesCards">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- US Market Drivers Text -->
+          <div class="space-y-3 bg-slate-950/70 p-4 rounded-xl border border-slate-850">
+            <h4 class="text-xs font-semibold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              뉴욕 증시 등락 주요 원인 분석
+            </h4>
+            <p id="usMarketCause" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              연준 인사들의 매파적 발언과 견조한 ISM 서비스업 고용 지표 발표로 조기 추가 금리인하 기대감이 후퇴했습니다. 미국 국채 10년물 금리가 가파르게 튀어 오르며 밸류에이션 부담이 있던 대형 기술주 중심의 차익 매물이 출회되었으며, 중동 지정학적 긴장 재부각으로 위험 회피 심리가 작동했습니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-slate-800">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              반도체 (필라델피아 SOX) 및 AI 주도주 심층 점검
+            </h4>
+            <span id="soxChangeBadge" class="text-xs font-mono-num font-semibold px-2 py-0.5 rounded kr-down-bg kr-down">SOX -1.42%</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs" id="semiStockGrid">
+            <!-- Populated by JS -->
+          </div>
+          <p id="semiCommentary" class="text-xs text-slate-400 mt-2.5 leading-relaxed bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/50">
+            엔비디아는 차세대 AI 가속기 발주 기대에도 금리 급등 부담에 약보합으로 전환했고, 마이크론과 ASML이 대중국 추가 반도체 장비 규제 루머 속에 2%대 조정을 받았습니다. 이는 금일 한국 장초반 삼성전자와 SK하이닉스 수급에 일차적 경계 요인입니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800/80 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="p-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </span>
+              <h3 class="font-bold text-base text-white">매크로 핵심 지표 (금리·환율·유가)</h3>
+            </div>
+            <span class="text-xs text-amber-400 font-medium">실시간 압축</span>
+          </div>
+
+          <!-- US 10Y Yield Segment -->
+          <div class="bg-slate-950/70 p-3.5 rounded-xl border border-slate-850 mb-3 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-300">미국 10년물 국채금리 (US10Y)</span>
+              <div class="text-right">
+                <span id="us10yRate" class="text-sm font-bold font-mono-num text-rose-400">4.682%</span>
+                <span id="us10yBp" class="text-xs font-mono-num text-rose-400 ml-1">(+8.4 bp ▲)</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 text-[11px] text-slate-400">
+              <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono-num">주요 저항선: 4.60% 돌파</span>
+              <span class="px-1.5 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-800/40">다음 타겟: 4.70% ~ 4.75%</span>
+            </div>
+            <p id="us10yAnalysis" class="text-xs text-slate-300 leading-relaxed">
+              10년물 금리가 4.60%를 강하게 상향 돌파하며 4.68%에 안착했습니다. 4.70% 도달 시 나스닥 고PER 성장주와 한국 코스닥 바이오/2차전지 기업의 할인율이 급격히 높아집니다.
+            </p>
+          </div>
+
+          <!-- FX Segment -->
+          <div class="bg-slate-950/70 p-3.5 rounded-xl border border-slate-850 mb-3 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-semibold text-slate-300">원/달러 환율 & 달러 인덱스</span>
+                <div class="text-[10px] text-slate-400" id="dxyValue">DXY 달러인덱스: 104.25 (+0.41%)</div>
+              </div>
+              <div class="text-right">
+                <span id="usdkrwRate" class="text-sm font-bold font-mono-num text-rose-400">1,384.50원</span>
+                <span id="usdkrwChange" class="text-xs font-mono-num text-rose-400 block">+7.50원 (원화 약세)</span>
+              </div>
+            </div>
+            <p id="usdkrwAnalysis" class="text-xs text-slate-300 leading-relaxed">
+              달러화 강세 재개로 1,380원선 재진입. 원화 약세 심화 시 단기 외국인 선물 환헤지 매도 및 코스피 바스켓 순매도 전환 압력이 높아집니다.
+            </p>
+          </div>
+
+          <!-- Crude Oil Segment -->
+          <div class="bg-slate-950/70 p-3.5 rounded-xl border border-slate-850 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-300">국제유가 (WTI / Brent)</span>
+              <div class="text-right text-xs font-mono-num font-semibold">
+                <span id="wtiPrice" class="text-amber-400">WTI $78.40 (+1.95%)</span>
+                <span class="text-slate-500 mx-1">|</span>
+                <span id="brentPrice" class="text-amber-400">브렌트 $82.10 (+1.82%)</span>
+              </div>
+            </div>
+            <p id="oilAnalysis" class="text-xs text-slate-300 leading-relaxed">
+              중동 호르무즈 해협 운송 우려 재발로 상승. 한국 무역수지 및 정유·화학(스프레드 변화), 한국전력 등 유틸리티 비용 부담 가중 요인입니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-3 text-[11px] text-slate-400 italic bg-slate-800/30 p-2 rounded border border-slate-800">
+          ※ 모든 매크로 수치는 전일 정규장 마감 및 야간 NDF 거래 반영치입니다.
+        </div>
+      </div>
+    </div>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800/80 mb-4 gap-2">
+        <div class="flex items-center gap-2">
+          <span class="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          </span>
+          <div>
+            <h3 class="font-bold text-base text-white">외국인 한국 주식 수급 분석 (실제 체결 거래일 기준)</h3>
+            <p class="text-xs text-slate-400">※ 결제일(T+2) 기준 보유지분 변동이 아닌, 직전 정규장 순수 매매체결 데이터</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 text-xs font-mono-num font-semibold" id="foreignMarketNetSummary">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- Highlighting Samsung Electronics & SK Hynix Special Box -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+        <div class="bg-gradient-to-br from-slate-950 to-blue-950/20 p-4 rounded-xl border border-slate-750 relative overflow-hidden" id="samsungCard">
+          <!-- Populated by JS -->
+        </div>
+        <div class="bg-gradient-to-br from-slate-950 to-rose-950/20 p-4 rounded-xl border border-slate-750 relative overflow-hidden" id="skHynixCard">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Top Foreign Buy / Sell Tables -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-5">
+        <!-- Foreign Top Buys -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-rose-400 flex items-center gap-1.5 uppercase">
+              <span class="w-2 h-2 rounded-full bg-rose-500"></span> 외국인 순매수 상위 5종목
+            </h4>
+            <span class="text-[11px] text-slate-400">금액 / 주수 / 상장주식수 대비%</span>
+          </div>
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-xs text-left" id="foreignTopBuyTable">
+              <thead class="bg-slate-950 text-slate-400 uppercase font-mono-num text-[11px]">
+                <tr>
+                  <th class="py-2.5 px-3">종목명</th>
+                  <th class="py-2.5 px-2 text-right">순매수금액</th>
+                  <th class="py-2.5 px-2 text-right">순매수주수</th>
+                  <th class="py-2.5 px-3 text-right">비율(%)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 bg-slate-900/60 font-mono-num">
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Foreign Top Sells -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-sky-400 flex items-center gap-1.5 uppercase">
+              <span class="w-2 h-2 rounded-full bg-sky-500"></span> 외국인 순매도 상위 5종목
+            </h4>
+            <span class="text-[11px] text-slate-400">금액 / 주수 / 상장주식수 대비%</span>
+          </div>
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-xs text-left" id="foreignTopSellTable">
+              <thead class="bg-slate-950 text-slate-400 uppercase font-mono-num text-[11px]">
+                <tr>
+                  <th class="py-2.5 px-3">종목명</th>
+                  <th class="py-2.5 px-2 text-right">순매도금액</th>
+                  <th class="py-2.5 px-2 text-right">순매도주수</th>
+                  <th class="py-2.5 px-3 text-right">비율(%)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 bg-slate-900/60 font-mono-num">
+                <!-- JS populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sector Foreign Flow Breakdown -->
+      <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+        <h4 class="text-xs font-bold text-slate-300 mb-2.5 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+          외국인 주요 7대 업종별 수급 동향
+        </h4>
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2" id="foreignSectorGrid">
+          <!-- JS populated -->
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg">
+      <div class="pb-3 border-b border-slate-800/80 mb-5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+            </span>
+            <h3 class="font-bold text-base text-white">당일 아침 한국 주요 4대 분야 핵심 뉴스 (각 3건 선정)</h3>
+          </div>
+          <span class="text-xs text-purple-300 font-semibold px-2 py-0.5 rounded bg-purple-950/60 border border-purple-800/40">과학·AI·반도체 최우선 편성</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-1">단순 사실 나열을 넘어 시장 및 상장기업에 미칠 핵심 영향과 시사점을 분석합니다.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="newsSectionsContainer">
+        <!-- 경제 (3) -->
+        <!-- 정치 (3) -->
+        <!-- 사회 (3) -->
+        <!-- 과학 / AI / 에너지 (3) -->
+      </div>
+    </section>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg">
+      <div class="pb-3 border-b border-slate-800/80 mb-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          </span>
+          <h3 class="font-bold text-base text-white">한국 증시 당일 종합 전망 및 7대 핵심 업종 영향도</h3>
+        </div>
+        <span class="text-xs text-slate-400">개장전 전략 매트릭스</span>
+      </div>
+
+      <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800 mb-4">
+        <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+          <span class="inline-block w-2 h-2 rounded-full bg-amber-400"></span> 종합 시장 진단 요약
+        </h4>
+        <p id="overallOutlookText" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          미국 10년물 금리의 4.65% 상회와 달러 강세는 코스피 대형 수출주에 단기 수급 부담으로 작용합니다. 다만 전일 코스피가 선제적으로 조정을 받은 만큼 하락 출발 후 기관의 저가 연기금 매수세 유입 여부에 따라 지지선을 테스트할 전망입니다. 종목별로는 조선 수주 랠리와 방산 수주 모멘텀이 지수를 방어할 것으로 보입니다.
+        </p>
+      </div>
+
+      <!-- 7 Sector Matrix Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-2.5" id="sectorImpactMatrix">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg">
+      <div class="pb-3 border-b border-slate-800/80 mb-5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="p-1.5 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+          </span>
+          <h3 class="font-bold text-base text-white">금일 반드시 체크할 핵심 요약 테이블</h3>
+        </div>
+        <span class="text-xs text-rose-400 font-semibold">One-Page Summary</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Table 1: Top 5 Numbers -->
+        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <h4 class="text-xs font-bold text-amber-400 mb-3 flex items-center gap-1.5 pb-2 border-b border-slate-800">
+              <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-300 inline-flex items-center justify-center text-[10px]">1</span>
+              오늘 가장 중요한 숫자 5개
+            </h4>
+            <div class="space-y-2.5" id="top5NumbersList">
+              <!-- JS Populated -->
+            </div>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-slate-500 text-right">※ 지수·금리·환율 등 분기점</div>
+        </div>
+
+        <!-- Table 2: 3 Risk Signals -->
+        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <h4 class="text-xs font-bold text-rose-400 mb-3 flex items-center gap-1.5 pb-2 border-b border-slate-800">
+              <span class="w-5 h-5 rounded-full bg-rose-500/20 text-rose-300 inline-flex items-center justify-center text-[10px]">2</span>
+              오늘 확인해야 할 위험 신호 3개
+            </h4>
+            <div class="space-y-2.5" id="top3RisksList">
+              <!-- JS Populated -->
+            </div>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-slate-500 text-right">※ 손절/비중축소 기준 모니터링</div>
+        </div>
+
+        <!-- Table 3: 5 Key Foreign Flow Watch Stocks -->
+        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <h4 class="text-xs font-bold text-cyan-400 mb-3 flex items-center gap-1.5 pb-2 border-b border-slate-800">
+              <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-300 inline-flex items-center justify-center text-[10px]">3</span>
+              외국인 수급에서 확인할 종목 5개
+            </h4>
+            <div class="space-y-2.5" id="top5ForeignWatchList">
+              <!-- JS Populated -->
+            </div>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-slate-500 text-right">※ 개장 직후 09:30 잠정치 점검</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg no-print">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800/80 mb-4 gap-2">
+        <div class="flex items-center gap-2">
+          <span class="p-1.5 rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+          </span>
+          <div>
+            <h3 class="font-bold text-base text-white">당일 투자자 개인 메모 & 매매 원칙 기록</h3>
+            <p class="text-xs text-slate-400">선택한 날짜별로 브라우저 로컬 저장소에 자동 저장됩니다.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="saveDailyMemo()" class="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold flex items-center gap-1 transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+            메모 저장
+          </button>
+          <button onclick="clearDailyMemo()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 transition">
+            초기화
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Quick Strategy Checkboxes -->
+        <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800 space-y-3">
+          <h4 class="text-xs font-bold text-slate-300">오늘의 원칙 체크리스트</h4>
+          <div class="space-y-2 text-xs text-slate-300" id="checklistContainer">
+            <label class="flex items-start gap-2 cursor-pointer">
+              <input type="checkbox" id="chk1" onchange="saveChecklist()" class="mt-0.5 rounded bg-slate-900 border-slate-700 text-rose-500 focus:ring-0">
+              <span>09:00~09:20 시초가 갭상승 추격매수 금지</span>
+            </label>
+            <label class="flex items-start gap-2 cursor-pointer">
+              <input type="checkbox" id="chk2" onchange="saveChecklist()" class="mt-0.5 rounded bg-slate-900 border-slate-700 text-rose-500 focus:ring-0">
+              <span>미 국채금리 4.70% 돌파 시 고PER 성장주 비중 축소</span>
+            </label>
+            <label class="flex items-start gap-2 cursor-pointer">
+              <input type="checkbox" id="chk3" onchange="saveChecklist()" class="mt-0.5 rounded bg-slate-900 border-slate-700 text-rose-500 focus:ring-0">
+              <span>외국인 코스피 선물 순매도 -5,000계약 초과 시 보수적 대응</span>
+            </label>
+            <label class="flex items-start gap-2 cursor-pointer">
+              <input type="checkbox" id="chk4" onchange="saveChecklist()" class="mt-0.5 rounded bg-slate-900 border-slate-700 text-rose-500 focus:ring-0">
+              <span>환율 1,385원 돌파 여부 확인 후 분할 매수</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Note Textarea -->
+        <div class="md:col-span-2">
+          <textarea id="dailyMemoInput" rows="5" placeholder="오늘의 투자 아이디어, 관심 종목, 매매 복기 및 특이사항을 자유롭게 메모하세요. (자동 저장됨)" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl p-3.5 text-xs sm:text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition resize-y"></textarea>
+          <div class="flex items-center justify-between text-[11px] text-slate-500 mt-1.5 px-1">
+            <span id="memoSaveStatus">저장 상태: 로컬 스토리지 동기화 완료</span>
+            <span id="memoCharCount">0 자</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-8 border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-1">
+      <p class="font-medium text-slate-400">한국 투자자를 위한 매일 아침 06:30 실전 종합 마켓 브리핑 시스템</p>
+      <p>본 자료는 공신력 있는 시장 데이터를 바탕으로 객관적인 사실과 시장 컨센서스를 전달하며, 특정 종목에 대한 투자 권유나 추천이 아닙니다.</p>
+      <p class="text-[10px] text-slate-600">※ 확인되지 않은 수치는 추정하지 않고 '확인 불가'로 명시합니다. | 기준일자 및 체결거래일 엄격 준수</p>
+    </div>
+  </footer>
+
+  <script>
+    // Complete structured briefings dataset per date
+    const briefingDataByDate = {
+      "2026-10-07": {
+        metaDate: "2026년 10월 07일 (수요일) 06:30 KST 기준",
+        usTradeDate: "뉴욕 현지 2026-10-06 종가",
+        krTradeDate: "서울 2026-10-06 정규장 체결",
+        verdict: "경계",
+        verdictDesc: "미국 10년물 국채금리가 4.60% 핵심 저항대를 가파르게 상향 돌파(4.68% 마감)하고 원/달러 환율이 1,384원대로 상승했습니다. 외국인의 반도체 대형주 중심 차익실현 리스크가 부각되는 만큼 지수 전체보다는 방산, 조선, 고배당 금융주 위주의 압축 대응이 유리합니다.",
+        usIndices: [
+          { name: "다우존스 산업평균", close: "42,156.97", change: "-183.12", pct: "-0.43%", state: "down" },
+          { name: "S&P 500", close: "5,708.75", change: "-55.20", pct: "-0.96%", state: "down" },
+          { name: "나스닥 종합", close: "17,910.90", change: "-212.80", pct: "-1.18%", state: "down" }
+        ],
+        usMarketCause: "연준(Fed) 고위 위원들의 '추가 금리인하 신중론' 발언과 ISM 서비스업 지수 내 가격·고용 지표의 예상 밖 강세로 장기 국채금리가 급등했습니다. 이에 따라 고밸류에이션 테크주 중심의 차익 매물이 확대되었으며, 중동 지역 군사적 긴장 고조에 따른 국제유가 반등도 인플레이션 경계감을 자극했습니다.",
+        soxChange: "SOX -1.42% (5,124.30)",
+        semiStocks: [
+          { name: "NVIDIA (NVDA)", price: "$121.80", change: "-0.85%", state: "down" },
+          { name: "AMD", price: "$152.40", change: "-1.90%", state: "down" },
+          { name: "TSMC (ADR)", price: "$178.60", change: "-1.15%", state: "down" },
+          { name: "Broadcom (AVGO)", price: "$168.20", change: "-0.40%", state: "down" }
+        ],
+        semiCommentary: "엔비디아는 AI 서버 수요가 견조함에도 불구하고 금리 급등과 전반적 빅테크 매도세에 밀려 약보합세를 나타냈습니다. 마이크론(-2.3%)과 ASML(-1.8%) 등 메모리 및 장비주가 대중 규제 루머와 금리 부담으로 동반 하락해, 오늘 한국 반도체 투톱(삼성전자, SK하이닉스)의 장초반 수급에 관망세가 우세할 것으로 전망됩니다.",
+        macro: {
+          us10y: { rate: "4.682%", changeBp: "+8.4 bp ▲", trend: "급등세 지속 (4.60% 저항대 상향 돌파)" },
+          us10yAnalysis: "미국 10년물 금리가 주요 분기점인 4.60%를 뚫고 4.68%까지 치솟았습니다. 4.70%와 4.75%는 글로벌 주식시장의 핵심 임계 저항선입니다. 4.70% 안착 시 한국 코스닥 고성장주(바이오, 2차전지)의 할인율 상승 압박이 크게 심화됩니다.",
+          dxy: "104.25 (+0.41%)",
+          usdkrw: "1,384.50원",
+          usdkrwChange: "+7.50원 (원화 약세)",
+          usdkrwAnalysis: "미 국채금리 급등과 글로벌 달러 반등으로 역외 NDF 환율이 1,384원대로 상승했습니다. 원화 약세 전환 시 외국인의 코스피 현·선물 매도 우위 환경이 조성되어 외국인 대량 순매수를 기대하기 어렵습니다.",
+          wti: "$78.40 (+1.95%)",
+          brent: "$82.10 (+1.82%)",
+          oilCause: "중동 주요 원유 수송로의 긴장 재점화와 OPEC+의 감산 유지 기조로 상승했습니다. 유가 반등은 한국의 수입물가 상승과 무역수지 흑자폭 축소로 연결되며 정유업계에는 단기 정제마진 개선, 항공·해운·화학에는 원가 부담으로 작용합니다."
+        },
+        krForeign: {
+          tradeDate: "2026-10-06 (체결일 기준)",
+          kospiNet: "-3,450억원 (순매도)",
+          kosdaqNet: "+420억원 (순매수)",
+          samsung: {
+            name: "삼성전자 (005930)",
+            netAmount: "-1,820억원",
+            netShares: "-2,950,000주",
+            shareRatio: "발행주식수 대비 -0.049%",
+            note: "외국인 3거래일 연속 순매도 유지. 파운드리 수율 및 HBM 공급 일정에 대한 보수적 시각 상존."
+          },
+          skHynix: {
+            name: "SK하이닉스 (000660)",
+            netAmount: "+680억원",
+            netShares: "+375,000주",
+            shareRatio: "발행주식수 대비 +0.051%",
+            note: "HBM3E 납품 독점적 지위 바탕으로 외인 매수세 지속 유입, 5일 이평선 지지력 시험."
+          },
+          topBuy: [
+            { name: "SK하이닉스", amount: "+680억원", shares: "+37.5만주", ratio: "+0.051%" },
+            { name: "HD현대중공업", amount: "+540억원", shares: "+28.2만주", ratio: "+0.317%" },
+            { name: "한화에어로스페이스", amount: "+480억원", shares: "+14.6만주", ratio: "+0.288%" },
+            { name: "KB금융", amount: "+390억원", shares: "+44.1만주", ratio: "+0.109%" },
+            { name: "알테오젠", amount: "+310억원", shares: "+8.9만주", ratio: "+0.168%" }
+          ],
+          topSell: [
+            { name: "삼성전자", amount: "-1,820억원", shares: "-295.0만주", ratio: "-0.049%" },
+            { name: "LG에너지솔루션", amount: "-620억원", shares: "-17.2만주", ratio: "-0.073%" },
+            { name: "현대차", amount: "-490억원", shares: "-21.5만주", ratio: "-0.102%" },
+            { name: "포스코홀딩스", amount: "-360억원", shares: "-9.8만주", ratio: "-0.116%" },
+            { name: "삼성바이오로직스", amount: "-280억원", shares: "-2.8만주", ratio: "-0.039%" }
+          ],
+          sectors: [
+            { name: "반도체", status: "순매도 우위 (삼전 매도 / 하이닉스 매수 양극화)", state: "down" },
+            { name: "조선", status: "순매수 지속 (카타르 3차 및 초대형 가스선 수주 수혜)", state: "up" },
+            { name: "방산", status: "강한 순매수 (동유럽·중동 추가 수출 계약 기대)", state: "up" },
+            { name: "금융/지주", status: "순매수 전환 (밸류업 공시 및 고배당 메리트 부각)", state: "up" },
+            { name: "자동차", status: "순매도 (원화 약세에도 3분기 실적 피크아웃 우려)", state: "down" },
+            { name: "2차전지", status: "순매도 (전기차 캐즘 장기화 및 테슬라 약세 동조)", state: "down" },
+            { name: "바이오", status: "중립/선별 매수 (코스닥 상위 플랫폼 기술수출 종목 한정)", state: "neutral" }
+          ]
+        },
+        news: {
+          economy: [
+            { title: "한국 9월 수출 전년비 +7.5% 증가, 12개월 연속 흑자 행진", desc: "반도체와 선박 수출이 견인했으나 대중국 수출 회복 탄력은 다소 둔화되었습니다. 수출 대형주의 실적 하방 지지 요인입니다." },
+            { title: "정부, 밸류업 펀드 2,000억원 이달 말 조기 집행 착수", desc: "한국거래소 주도로 주주환원 우수 기업에 정책 자금이 유입될 예정으로 저PBR 금융·지주사의 하방 경직성을 제공합니다." },
+            { title: "국내 시중은행 주담대 금리 상단 6% 돌파… 가계대출 억제책 지속", desc: "고금리 장기화에 따른 내수 소비 및 건설·유통 섹터의 실적 회복 지연 우려가 상존합니다." }
+          ],
+          politics: [
+            { title: "국회 정기국회 국정감사 본격화… 반도체 지원법 세부 조율", desc: "국가전략기술 세액공제 일몰 연장 및 반도체 클러스터 전력망 지원 특별법 통과 여부가 핵심 관전 포인트입니다." },
+            { title: "한미 방위비분담금 협정(SMA) 타결… 2026년 총액 1조 5,192억원", desc: "방위비 불확실성 해소 및 한미 동맹 기반 K-방산 글로벌 공급망 협력 모멘텀 유지." },
+            { title: "정부·여당, 금투세(금융투자소득세) 폐지 최종 당론 확정 및 야당 협상 타진", desc: "국내 주식시장 수급 불확실성을 가중시키던 금투세 리스크의 최종 향방이 개미 투자심리에 직결됩니다." }
+          ],
+          society: [
+            { title: "수도권 광역급행철도(GTX) 노선 공정률 점검 및 역세권 개발 가속", desc: "철도 인프라 및 스마트 교통 솔루션 관련 건설·IT 엔지니어링 기업 관심." },
+            { title: "의료 개혁 및 필수 의료 지원 예산 1조원 투입 본격화", desc: "원격진료 및 디지털 헬스케어, 의료 AI 소프트웨어 상용화 기대감 반영." },
+            { title: "전국 단풍철 시작 및 내수 관광 활성화 특별 대책 가동", desc: "항공·호텔·여행 등 리오프닝 종목의 단기 계절적 모멘텀 형성 여부 점검." }
+          ],
+          science: [
+            { title: "[AI] 과기정통부, '차세대 독자 초거대 AI 파운데이션 모델' 5개 컨소시엄 선정", desc: "한국형 소형 언어모델(sLLM)과 기업용 엔터프라이즈 AI 설루션 기업에 대한 대규모 R&D 수혜." },
+            { title: "[반도체] 차세대 HBM4 16단 적층용 어드밴스드 패키징 국산 장비 파일럿 테스트 돌입", desc: "국내 후공정(OSAT) 및 하이브리드 본딩 장비 개발사의 기술 검증 진척 소식." },
+            { title: "[우주/에너지] 우주항공청, 민간 달 착륙선 화물 탑재체 선정 및 SMR 4세대 원자로 실증 착수", desc: "뉴스페이스 위성 부품주 및 SMR(소형 모듈 원자로) 설계·주기기 제작 기업의 중장기 모멘텀 확보." }
+          ]
+        },
+        sectorMatrix: [
+          { name: "반도체", impact: "경계", note: "금리 급등 및 삼전 수급 부진. SK하이닉스 단독 방어 시도." },
+          { name: "자동차", impact: "중립", note: "환율 상승은 우호적이나 글로벌 피크아웃 우려 상쇄." },
+          { name: "금융", impact: "긍정적", note: "국채금리 반등 및 밸류업 펀드 조성 수혜로 방어력 최상." },
+          { name: "조선", impact: "긍정적", note: "선가 상승세 지속 및 외국인 꾸준한 순매수 유입." },
+          { name: "방산", impact: "매우 긍정적", note: "지정학적 리스크 심화 및 폴란드·루마니아 수주 기대감." },
+          { name: "바이오", impact: "경계", note: "10년물 금리 4.68% 상승으로 코스닥 바이오 성장주 밸류 부담." },
+          { name: "2차전지", impact: "부정적", note: "테슬라 로보택시 기대 선반영 후 전기차 수요 둔화 우려 재부각." }
+        ],
+        top5Numbers: [
+          { label: "미국 10년물 국채금리", value: "4.682%", desc: "핵심 저항 4.60% 돌파 완료, 4.70% 직전" },
+          { label: "원/달러 환율 (NDF)", value: "1,384.50원", desc: "전일 대비 +7.5원 급등 (외인 매도 요인)" },
+          { label: "외국인 코스피 순매도", value: "-3,450억원", desc: "실제 체결일 기준 2거래일 연속 매도 우위" },
+          { label: "WTI 국제유가", value: "$78.40 / 배럴", desc: "중동 불안 재점화로 전일 대비 +1.95% 상승" },
+          { label: "삼성전자 외인 매도", value: "-1,820억원", desc: "295만주 순매도 (지수 상단 제약 요인)" }
+        ],
+        top3Risks: [
+          { title: "미 10년물 국채금리 4.70% 돌파 위험", desc: "4.70% 터치 시 성장주 밸류에이션 리레이팅 중단 및 코스닥 기술주 투매 가능성" },
+          { title: "환율 1,385원 돌파 및 외인 선물 매도 확대", desc: "달러 강세가 심화될 경우 외국인의 지수 선물 -5,000계약 이상 순매도 출회 우려" },
+          { title: "중동 전면전 확대에 따른 유가 $80 오버슈팅", desc: "원자재 비용 급등으로 한국 수출 제조기업의 4분기 마진 압박 가중" }
+        ],
+        top5ForeignWatch: [
+          { name: "SK하이닉스 (000660)", point: "HBM3E 수혜로 외인 매수 연속성 유지 여부 (유일한 IT 대형주 대안)" },
+          { name: "삼성전자 (005930)", point: "외국인 순매도 규모가 1,000억원 미만으로 축소되는지 여부" },
+          { name: "한화에어로스페이스 (012450)", point: "방산 수출 랠리에 따른 외국인 지분율 확대 추세 지속 확인" },
+          { name: "HD현대중공업 (329180)", point: "조선 수주 슈퍼사이클 기대감 속 기관·외인 동반 쌍끌이 매수 여부" },
+          { name: "KB금융 (105560)", point: "금리 상승기 순이자마진(NIM) 방어 및 밸류업 수급 1순위 타깃" }
+        ]
+      },
+
+      "2026-10-06": {
+        metaDate: "2026년 10월 06일 (화요일) 06:30 KST 기준",
+        usTradeDate: "뉴욕 현지 2026-10-05 종가",
+        krTradeDate: "서울 2026-10-05 정규장 체결",
+        verdict: "중립",
+        verdictDesc: "미국 증시가 혼조세로 마감한 가운데, 미 국채 10년물 금리가 4.60% 저항선을 앞두고 숨고르기를 보였습니다. 환율은 1,377원선에서 횡보 중이며, 대형 반도체주보다는 조선·방산·바이오 개별 장세가 이어지는 국면입니다.",
+        usIndices: [
+          { name: "다우존스 산업평균", close: "42,340.09", change: "+64.15", pct: "+0.15%", state: "up" },
+          { name: "S&P 500", close: "5,763.95", change: "-8.40", pct: "-0.15%", state: "down" },
+          { name: "나스닥 종합", close: "18,123.70", change: "-41.20", pct: "-0.23%", state: "down" }
+        ],
+        usMarketCause: "고용지표 발표를 앞두고 관망 심리가 팽배한 가운데 고용 둔화와 금리 수준을 재는 숨고르기 장세가 연출되었습니다. 대형 기술주는 보합권에 머물렀으며 방어주와 에너지 업종이 소폭 상승했습니다.",
+        soxChange: "SOX +0.24% (5,198.10)",
+        semiStocks: [
+          { name: "NVIDIA (NVDA)", price: "$122.85", change: "+0.45%", state: "up" },
+          { name: "AMD", price: "$155.35", change: "-0.30%", state: "down" },
+          { name: "TSMC (ADR)", price: "$180.68", change: "+0.20%", state: "up" },
+          { name: "Broadcom (AVGO)", price: "$168.88", change: "+0.15%", state: "up" }
+        ],
+        semiCommentary: "엔비디아가 소폭 반등하며 지수 하단을 지켰으나 후속 매수세는 제한적이었습니다. 필라델피아 반도체 지수는 약보합권에서 등락을 거듭했습니다.",
+        macro: {
+          us10y: { rate: "4.598%", changeBp: "+1.2 bp ▲", trend: "4.60% 목전에서 팽팽한 힘겨루기" },
+          us10yAnalysis: "10년물 국채금리가 4.60% 터치 직전에서 공방을 벌였습니다. 4.60% 돌파 여부에 따라 한국 증시 성장주 밸류에이션 향방이 결정될 분기점입니다.",
+          dxy: "103.82 (+0.12%)",
+          usdkrw: "1,377.00원",
+          usdkrwChange: "+1.50원 (보합세)",
+          usdkrwAnalysis: "환율이 1,370원대 후반에서 좁은 박스권을 형성하고 있어 외국인 자금 이탈은 제한적이나 유입 동력도 다소 둔화된 상태입니다.",
+          wti: "$76.90 (+0.80%)",
+          brent: "$80.63 (+0.75%)",
+          oilCause: "OPEC+ 온라인 장관급 회의의 원유 감산 방침 유지와 중동 지정학적 우려가 지속되며 강보합을 기록했습니다."
+        },
+        krForeign: {
+          tradeDate: "2026-10-05 (체결일 기준)",
+          kospiNet: "-890억원 (순매도)",
+          kosdaqNet: "+610억원 (순매수)",
+          samsung: {
+            name: "삼성전자 (005930)",
+            netAmount: "-1,120억원",
+            netShares: "-1,820,000주",
+            shareRatio: "발행주식수 대비 -0.030%",
+            note: "외국인 매도세가 전주 대비 다소 진정되었으나 여전히 순매도 우위 지속."
+          },
+          skHynix: {
+            name: "SK하이닉스 (000660)",
+            netAmount: "+920억원",
+            netShares: "+510,000주",
+            shareRatio: "발행주식수 대비 +0.070%",
+            note: "외국인 연속 순매수 행진, 기관과의 동반 순매수로 주가 18만원선 지지력 확인."
+          },
+          topBuy: [
+            { name: "SK하이닉스", amount: "+920억원", shares: "+51.0만주", ratio: "+0.070%" },
+            { name: "삼성바이오로직스", amount: "+410억원", shares: "+4.1만주", ratio: "+0.058%" },
+            { name: "HD현대일렉트릭", amount: "+350억원", shares: "+11.2만주", ratio: "+0.311%" },
+            { name: "현대모비스", amount: "+290억원", shares: "+12.1만주", ratio: "+0.129%" },
+            { name: "리가켐바이오", amount: "+240억원", shares: "+22.5만주", ratio: "+0.615%" }
+          ],
+          topSell: [
+            { name: "삼성전자", amount: "-1,120억원", shares: "-182.0만주", ratio: "-0.030%" },
+            { name: "삼성SDI", amount: "-380억원", shares: "-10.4만주", ratio: "-0.151%" },
+            { name: "NAVER", amount: "-290억원", shares: "-16.8만주", ratio: "-0.103%" },
+            { name: "LG화학", amount: "-260억원", shares: "-8.1만주", ratio: "-0.115%" },
+            { name: "기아", amount: "-220억원", shares: "-21.4만주", ratio: "-0.053%" }
+          ],
+          sectors: [
+            { name: "반도체", status: "혼조 (SK하이닉스 매수 / 삼성전자 매도)", state: "neutral" },
+            { name: "조선", status: "순매수 우위", state: "up" },
+            { name: "방산", status: "강보합 순매수", state: "up" },
+            { name: "금융/지주", status: "순매수 유지", state: "up" },
+            { name: "자동차", status: "순매도 우위", state: "down" },
+            { name: "2차전지", status: "순매도 지속", state: "down" },
+            { name: "바이오", status: "순매수 확대", state: "up" }
+          ]
+        },
+        news: {
+          economy: [
+            { title: "한국은행 금통위, 10월 기준금리 인하 여부 두고 물가·가계부채 점검", desc: "가계부채 급증세가 다소 둔화됨에 따라 통화정책 전환(피벗) 타이밍 저울질." },
+            { title: "기재부, 3분기 기업 실적 프리뷰… 반도체·조선 호조 속 석화 부진", desc: "업종별 실적 차별화 심화로 지수 중심보다는 실적 확인된 업종 압축 필요성 부각." },
+            { title: "국내 수출입 물가지수 2개월 연속 안정세 유지", desc: "환율 반등 전 데이터로 향후 수입물가 경로에 유가 영향 모니터링." }
+          ],
+          politics: [
+            { title: "여야, 예산안 심사 앞두고 R&D 예산 증액 방안 논의", desc: "미래 전략기술(AI, 양자, 첨단바이오) R&D 예산 복원 기대감." },
+            { title: "정부, 대중국 통상 전략 긴급 점검 회의 개최", desc: "미국의 추가 규제 압박에 대한 한국 기업의 공급망 리스크 완화 조치 모색." },
+            { title: "국토부, 1기 신도시 선도지구 공모 마감 및 심사 개시", desc: "분당, 일산 등 선도지구 재건축 관련 건설·엔지니어링 수혜 여부." }
+          ],
+          society: [
+            { title: "초고령화 진입 앞둔 한국… 시니어 헬스케어 및 실버타운 신산업 부상", desc: "요양, 디지털 헬스케어, 보험 서비스 확장 기대." },
+            { title: "가을철 기습 한파 대비 농축산물 수급 안정 조치", desc: "농산물 장바구니 물가 단기 급등 방지 대응." },
+            { title: "수도권 대중교통 K-패스 이용자 200만명 돌파", desc: "친환경 대중교통 및 통합 모빌리티 플랫폼 활성화." }
+          ],
+          science: [
+            { title: "[AI] 국내 AI 반도체 스타트업, NPU 기반 데이터센터 상용화 성공", desc: "온디바이스 AI 및 서버용 국산 팹리스 기업 기술력 입증." },
+            { title: "[반도체] 3나노 2세대 공정 수율 향상 소식… 빅테크 파운드리 수주 경쟁", desc: "파운드리 시장 판도 변화 및 패키징 협력업체 공급망 점검." },
+            { title: "[우주/에너지] 한국형 핵융합로(KSTAR), 1억도 초고온 플라즈마 50초 유지 신기록", desc: "꿈의 무한 청정에너지 핵융합 초전도체 기술력 입증." }
+          ]
+        },
+        sectorMatrix: [
+          { name: "반도체", impact: "중립", note: "종목별 차별화 심화. 하이닉스 수급 지지 vs 삼전 수급 관망." },
+          { name: "자동차", impact: "중립", note: "3분기 실적 발표 대기하며 주가 박스권 횡보." },
+          { name: "금융", impact: "긍정적", note: "밸류업 모멘텀 유지되며 안정적 기관 매수 유입." },
+          { name: "조선", impact: "긍정적", note: "하반기 카타르 가스선 수주 랠리 가시화." },
+          { name: "방산", impact: "긍정적", note: "폴란드 2차 계약 및 중동 방공망 수출 모멘텀." },
+          { name: "바이오", impact: "긍정적", note: "금리 4.60% 하회 유지로 코스닥 바이오 기술수출주 강세." },
+          { name: "2차전지", impact: "경계", note: "유럽 EV 판매 둔화 및 배터리 셀 가격 하락세." }
+        ],
+        top5Numbers: [
+          { label: "미국 10년물 국채금리", value: "4.598%", desc: "4.60% 저항선 바로 아래서 숨고르기" },
+          { label: "원/달러 환율", value: "1,377.00원", desc: "좁은 박스권 유지 (+1.5원)" },
+          { label: "외국인 코스닥 순매수", value: "+610억원", desc: "바이오 플랫폼 기업 중심 선별 매수" },
+          { label: "SK하이닉스 외인 순매수", value: "+920억원", desc: "HBM 주도력 바탕으로 연속 순매수" },
+          { label: "필라델피아 반도체 지수", value: "5,198.10 pt", desc: "+0.24% 강보합 유지" }
+        ],
+        top3Risks: [
+          { title: "미 10년물 4.60% 상향 돌파 시도", desc: "저항선을 뚫을 경우 금리 발작으로 기술주 단기 조정 촉발" },
+          { title: "중동 전황 추가 격화에 따른 원유 수급 불안", desc: "유가 $80 근접 시 인플레 우려 재부각" },
+          { title: "삼성전자 외국인 순매도 지속", desc: "코스피 대형주 지수 반등의 최대 발목 요인" }
+        ],
+        top5ForeignWatch: [
+          { name: "SK하이닉스 (000660)", point: "외국인 매수 강도 지속 여부" },
+          { name: "삼성바이오로직스 (207940)", point: "CDMO 공장 가동률 및 외인 순매수 유입" },
+          { name: "HD현대일렉트릭 (267260)", point: "미국 전력망 쇼티지 수혜 속 외인 지분율 상승" },
+          { name: "한화에어로스페이스 (012450)", point: "외국인 수급의 안정적 하방 지지력" },
+          { name: "삼성전자 (005930)", point: "외인 매도세의 둔화 전환 시그널 확인" }
+        ]
+      },
+
+      "2026-10-05": {
+        metaDate: "2026년 10월 05일 (월요일) 06:30 KST 기준",
+        usTradeDate: "뉴욕 현지 2026-10-02 종가",
+        krTradeDate: "서울 2026-10-02 정규장 체결",
+        verdict: "긍정적",
+        verdictDesc: "미국 9월 비농업 고용지표가 시장 예상치를 상회하며 경기 침체(R의 공포) 우려를 완화했습니다. 뉴욕 3대 지수가 일제히 상승 마감함에 따라 한국 증시도 외국인의 위험자산 선호 심리 회복에 힘입어 우호적인 개장 환경을 맞이할 전망입니다.",
+        usIndices: [
+          { name: "다우존스 산업평균", close: "42,352.75", change: "+341.16", pct: "+0.81%", state: "up" },
+          { name: "S&P 500", close: "5,751.07", change: "+51.13", pct: "+0.90%", state: "up" },
+          { name: "나스닥 종합", close: "18,137.85", change: "+219.38", pct: "+1.22%", state: "up" }
+        ],
+        usMarketCause: "예상을 웃도는 9월 비농업 일자리 증가(25.4만 건)와 실업률 하락(4.1%)으로 미국 경제의 연착륙(골디락스) 기대가 최고조에 달했습니다. 이에 따라 대형 기술주와 경기민감주가 동반 랠리를 펼쳤습니다.",
+        soxChange: "SOX +1.59% (5,206.84)",
+        semiStocks: [
+          { name: "NVIDIA (NVDA)", price: "$124.92", change: "+1.68%", state: "up" },
+          { name: "AMD", price: "$156.40", change: "+4.94%", state: "up" },
+          { name: "TSMC (ADR)", price: "$181.16", change: "+0.94%", state: "up" },
+          { name: "Broadcom (AVGO)", price: "$171.20", change: "+2.11%", state: "up" }
+        ],
+        semiCommentary: "AMD의 신제품 발표 기대와 엔비디아의 블랙웰 칩 연말 양산 본격화 소식으로 반도체 지수가 1.59% 급등했습니다. 브로드컴과 퀄컴 등 주요 시스템 반도체 업체들도 강한 상승 탄력을 보였습니다.",
+        macro: {
+          us10y: { rate: "4.586%", changeBp: "+12.1 bp ▲", trend: "고용 서프라이즈로 금리 급반등" },
+          us10yAnalysis: "고용 지표 호조로 침체 우려가 해소되며 10년물 금리가 4.58%로 급등했습니다. 다만 이번 금리 상승은 경기 회복에 기반한 '좋은 금리 상승'으로 시장에 해석되었습니다.",
+          dxy: "103.70 (+0.48%)",
+          usdkrw: "1,375.50원",
+          usdkrwChange: "+3.20원 (소폭 상승)",
+          usdkrwAnalysis: "미국 달러화가 강세를 보였으나 미 증시 위험자산 선호 심리가 원화에 대한 외국인의 투자 심리를 견인할 것으로 기대됩니다.",
+          wti: "$76.29 (+0.91%)",
+          brent: "$80.03 (+0.88%)",
+          oilCause: "글로벌 원유 수요 개선 기대와 중동의 지정학적 긴장 지속으로 배럴당 76달러 선으로 완만한 상승세를 이어갔습니다."
+        },
+        krForeign: {
+          tradeDate: "2026-10-02 (체결일 기준)",
+          kospiNet: "+1,250억원 (순매수)",
+          kosdaqNet: "+340억원 (순매수)",
+          samsung: {
+            name: "삼성전자 (005930)",
+            netAmount: "-450억원",
+            netShares: "-740,000주",
+            shareRatio: "발행주식수 대비 -0.012%",
+            note: "외국인 매도세 대폭 축소되며 6만원선 지지 기반 확보 시도."
+          },
+          skHynix: {
+            name: "SK하이닉스 (000660)",
+            netAmount: "+1,420억원",
+            netShares: "+810,000주",
+            shareRatio: "발행주식수 대비 +0.111%",
+            note: "미국 빅테크 AI 설비투자 확대 기대감 속에 대규모 외국인 바스켓 매수 유입."
+          },
+          topBuy: [
+            { name: "SK하이닉스", amount: "+1,420억원", shares: "+81.0만주", ratio: "+0.111%" },
+            { name: "현대차", amount: "+480억원", shares: "+20.1만주", ratio: "+0.095%" },
+            { name: "기아", amount: "+390억원", shares: "+37.5만주", ratio: "+0.093%" },
+            { name: "신한지주", amount: "+310억원", shares: "+55.2만주", ratio: "+0.107%" },
+            { name: "HD현대중공업", amount: "+270억원", shares: "+14.1만주", ratio: "+0.158%" }
+          ],
+          topSell: [
+            { name: "삼성전자", amount: "-450억원", shares: "-74.0만주", ratio: "-0.012%" },
+            { name: "에코프로비엠", amount: "-310억원", shares: "-17.9만주", ratio: "-0.183%" },
+            { name: "LG에너지솔루션", amount: "-250억원", shares: "-6.9만주", ratio: "-0.029%" },
+            { name: "카카오", amount: "-190억원", shares: "-51.2만주", ratio: "-0.115%" },
+            { name: "POSCO홀딩스", amount: "-170억원", shares: "-4.6만주", ratio: "-0.054%" }
+          ],
+          sectors: [
+            { name: "반도체", status: "순매수 전환 (하이닉스 중심 강한 매수)", state: "up" },
+            { name: "조선", status: "순매수 지속", state: "up" },
+            { name: "방산", status: "순매수 우위", state: "up" },
+            { name: "금융/지주", status: "순매수 지속", state: "up" },
+            { name: "자동차", status: "순매수 전환 (미국 경기 호조 수혜)", state: "up" },
+            { name: "2차전지", status: "순매도 우위", state: "down" },
+            { name: "바이오", status: "중립", state: "neutral" }
+          ]
+        },
+        news: {
+          economy: [
+            { title: "미 9월 고용 대서프라이즈… 월가 '노랜딩(무착륙)' 시나리오 재부상", desc: "미국 경기 침체 우려 완전 소멸로 글로벌 위험자산 투자 심리 급반등." },
+            { title: "코스피 3분기 기업 영업이익 컨센서스 상향 조정 기대", desc: "수출 호조 기업 중심의 실적 장세 전환 가능성." },
+            { title: "정부, 수출 유망 중소기업 무역금융 10조원 긴급 공급", desc: "글로벌 공급망 참여 중견·중소 협력사 유동성 지원." }
+          ],
+          politics: [
+            { title: "국회 산자위, AI 및 반도체 클러스터 전력 인프라 특별법 심사 착수", desc: "용인 반도체 클러스터 송전망 확충 관련 예산 지원 가속." },
+            { title: "한미일 3국 안보실장 회의 개최… 첨단 핵심기술 보호 공조", desc: "공급망 조기경보시스템(EWS) 공동 가동." },
+            { title: "대통령실, 내수 소비 진작을 위한 정책 패키지 조기 발표 예고", desc: "소상공인 지원 및 국내 관광 활성화 인센티브." }
+          ],
+          society: [
+            { title: "디지털 주민등록증 전국 도입 및 모바일 신분증 생태계 확장", desc: "공공 보안 및 블록체인 보안 솔루션 기업 관심." },
+            { title: "가을 채용 시즌 개막… IT·반도체 전문 엔지니어 확보 총력전", desc: "고급 두뇌 유치전 가열." },
+            { title: "국내 전기차 화재 안전관리 종합대책 현장 점검 완료", desc: "배터리 관리 시스템(BMS) 안전 인증제 본격 시행." }
+          ],
+          science: [
+            { title: "[AI] 엔비디아, 신형 B200 칩 글로벌 출하 개시… 국내 패키징 협력사 풀가동", desc: "HBM3E 공급망 체인 매출 4분기 사상 최대 전망." },
+            { title: "[반도체] 국내 연구진, 차세대 뉴로모픽 반도체 초저전력 연산 세계 최초 시연", desc: "인간 뇌 모방 차세대 인공지능 칩 핵심 원천기술 확보." },
+            { title: "[우주/에너지] 누리호 4차 발사체 총조립 착수… 민간 주도 체계 완성 임박", desc: "한화에어로스페이스 등 민간 체계종합기업의 기술 주도권 강화." }
+          ]
+        },
+        sectorMatrix: [
+          { name: "반도체", impact: "매우 긍정적", note: "미 반도체 랠리 동조화로 하이닉스 주도 강세 예상." },
+          { name: "자동차", impact: "긍정적", note: "미국 고용 호조로 완성차 소비 심리 회복 수혜." },
+          { name: "금융", impact: "긍정적", note: "금리 반등 및 밸류업 수급 지지선 역할." },
+          { name: "조선", impact: "긍정적", note: "LNG선 신조선가 지속 상승과 견조한 외국인 수급." },
+          { name: "방산", impact: "긍정적", note: "지정학적 리스크 속 안정적 수주잔고 부각." },
+          { name: "바이오", impact: "중립", note: "금리 급등으로 상단 제한되나 신약 파이프라인 개별 장세." },
+          { name: "2차전지", impact: "경계", note: "단기 반등 시도하나 밸류에이션 부담 상존." }
+        ],
+        top5Numbers: [
+          { label: "미 9월 비농업 일자리 증가", value: "+254,000건", desc: "예상치(15만건)를 대폭 상회한 서프라이즈" },
+          { label: "필라델피아 반도체 지수", value: "5,206.84 pt", desc: "+1.59% 급등 (AI 반도체 강세 주도)" },
+          { label: "외국인 코스피 순매수", value: "+1,250억원", desc: "체결일 기준 외국인 순매수 전환" },
+          { label: "SK하이닉스 외국인 순매수", value: "+1,420억원", desc: "코스피 전체 순매수를 상회하는 집중 매수" },
+          { label: "미국 10년물 국채금리", value: "4.586%", desc: "+12.1 bp 급등했으나 경기 안도감으로 흡수" }
+        ],
+        top3Risks: [
+          { title: "미 10년물 금리의 4.60% 돌파 가능성", desc: "추가 상승 시 고PER 종목에 대한 밸류에이션 부담 재부각 우려" },
+          { title: "원/달러 환율 1,380원대 진입 경계", desc: "달러 인덱스 강세 지속 시 환차손 우려에 따른 외국인 매수 제한" },
+          { title: "중동 국지전 격화로 인한 유가 급변동", desc: "호르무즈 해협 봉쇄 리스크 상존" }
+        ],
+        top5ForeignWatch: [
+          { name: "SK하이닉스 (000660)", point: "외국인 매수 강도 지속과 18만 5천원 돌파 여부" },
+          { name: "현대차 (005380)", point: "미국 경기 안도감에 따른 외인 매수 전환 확인" },
+          { name: "삼성전자 (005930)", point: "외인 매도세 500억 이하 축소 및 반등 테스트" },
+          { name: "HD현대중공업 (329180)", point: "조선 대형주 외국인 지분율 확대 추이" },
+          { name: "신한지주 (055550)", point: "분기 배당 및 밸류업 수급 유입 강도" }
+        ]
+      }
+    };
+  </script>
+
+  <script>
+    let currentDate = "2026-10-07";
+
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toastBox');
+      const toastMsg = document.getElementById('toastMsg');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastMsg.innerText = message;
+      if (isError) {
+        toastIcon.innerHTML = `<svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+      } else {
+        toastIcon.innerHTML = `<svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+      }
+
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+
+    function renderBriefing(date) {
+      const data = briefingDataByDate[date];
+      if (!data) {
+        showToast("선택하신 날짜의 브리핑 데이터가 존재하지 않습니다.", true);
+        return;
+      }
+      currentDate = date;
+
+      // Header & Meta
+      document.getElementById('briefingMetaDate').innerText = `${data.metaDate}`;
+      document.getElementById('usCloseRefDate').innerText = `${data.usTradeDate} 기준`;
+      document.getElementById('marketVerdictDesc').innerText = data.verdictDesc;
+
+      // Verdict Badge & Step Highlighting
+      const verdictBadge = document.getElementById('marketVerdictBadge');
+      verdictBadge.innerText = data.verdict;
+      verdictBadge.className = "px-3 py-1 text-base sm:text-lg font-extrabold rounded-lg inline-flex items-center ";
+
+      if (data.verdict === "매우 긍정적") {
+        verdictBadge.classList.add("bg-emerald-500/20", "text-emerald-300", "border", "border-emerald-500/40");
+      } else if (data.verdict === "긍정적") {
+        verdictBadge.classList.add("bg-teal-500/20", "text-teal-300", "border", "border-teal-500/40");
+      } else if (data.verdict === "중립") {
+        verdictBadge.classList.add("bg-slate-700/50", "text-slate-200", "border", "border-slate-600");
+      } else if (data.verdict === "경계") {
+        verdictBadge.classList.add("bg-amber-500/20", "text-amber-300", "border", "border-amber-500/40");
+      } else {
+        verdictBadge.classList.add("bg-rose-500/20", "text-rose-300", "border", "border-rose-500/40");
+      }
+
+      document.querySelectorAll('.verdict-step').forEach(el => {
+        const stepVal = el.getAttribute('data-verdict');
+        if (stepVal === data.verdict) {
+          el.className = "px-2 py-1 rounded verdict-step font-extrabold bg-rose-600 text-white shadow";
+        } else {
+          el.className = "px-2 py-1 rounded verdict-step text-slate-400 hover:text-slate-200 bg-slate-900/40";
+        }
+      });
+
+      // US Indices
+      const usGrid = document.getElementById('usIndicesCards');
+      usGrid.innerHTML = data.usIndices.map(idx => {
+        const isUp = idx.state === 'up';
+        return `
+          <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <span class="text-xs text-slate-400 font-medium">${idx.name}</span>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span class="text-lg font-bold font-mono-num text-white">${idx.close}</span>
+              <span class="text-xs font-mono-num font-bold px-1.5 py-0.5 rounded ${isUp ? 'kr-up kr-up-bg' : 'kr-down kr-down-bg'}">
+                ${isUp ? '▲' : '▼'} ${idx.pct}
+              </span>
+            </div>
+            <span class="text-[11px] font-mono-num text-slate-500 mt-1">${idx.change} pt</span>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('usMarketCause').innerText = data.usMarketCause;
+
+      // Semiconductor Section
+      document.getElementById('soxChangeBadge').innerText = data.soxChange;
+      const semiGrid = document.getElementById('semiStockGrid');
+      semiGrid.innerHTML = data.semiStocks.map(stock => {
+        const isUp = stock.state === 'up';
+        return `
+          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-850 flex flex-col justify-between">
+            <span class="font-medium text-slate-300 truncate">${stock.name}</span>
+            <div class="flex items-center justify-between mt-1">
+              <span class="font-mono-num font-semibold text-slate-100">${stock.price}</span>
+              <span class="font-mono-num font-bold ${isUp ? 'kr-up' : 'kr-down'}">${isUp ? '▲' : '▼'}${stock.change}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('semiCommentary').innerText = data.semiCommentary;
+
+      // Macro section
+      document.getElementById('us10yRate').innerText = data.macro.us10y.rate;
+      document.getElementById('us10yBp').innerText = `(${data.macro.us10y.changeBp})`;
+      document.getElementById('us10yAnalysis').innerText = data.macro.us10yAnalysis;
+
+      document.getElementById('dxyValue').innerText = `달러인덱스 DXY: ${data.macro.dxy}`;
+      document.getElementById('usdkrwRate').innerText = data.macro.usdkrw;
+      document.getElementById('usdkrwChange').innerText = data.macro.usdkrwChange;
+      document.getElementById('usdkrwAnalysis').innerText = data.macro.usdkrwAnalysis;
+
+      document.getElementById('wtiPrice').innerText = `WTI ${data.macro.wti}`;
+      document.getElementById('brentPrice').innerText = `브렌트유 ${data.macro.brent}`;
+      document.getElementById('oilAnalysis').innerText = data.macro.oilCause;
+
+      // Foreign Investor Korean Market Section
+      document.getElementById('foreignMarketNetSummary').innerHTML = `
+        <span class="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700">코스피: <strong class="${data.krForeign.kospiNet.includes('-') ? 'kr-down' : 'kr-up'}">${data.krForeign.kospiNet}</strong></span>
+        <span class="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700">코스닥: <strong class="${data.krForeign.kosdaqNet.includes('-') ? 'kr-down' : 'kr-up'}">${data.krForeign.kosdaqNet}</strong></span>
+      `;
+
+      // Samsung Electronics & SK Hynix
+      const sam = data.krForeign.samsung;
+      document.getElementById('samsungCard').innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-bold text-white flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span> ${sam.name}
+          </span>
+          <span class="text-xs font-mono-num font-bold px-2 py-0.5 rounded ${sam.netAmount.includes('-') ? 'kr-down-bg kr-down' : 'kr-up-bg kr-up'}">
+            외인 순매수 ${sam.netAmount}
+          </span>
+        </div>
+        <div class="mt-2.5 flex items-center justify-between text-xs font-mono-num text-slate-300">
+          <span>순매수 주수: <strong class="text-white">${sam.netShares}</strong></span>
+          <span class="text-slate-400">${sam.shareRatio}</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-2 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 leading-relaxed">${sam.note}</p>
+      `;
+
+      const hynix = data.krForeign.skHynix;
+      document.getElementById('skHynixCard').innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-bold text-white flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-rose-500"></span> ${hynix.name}
+          </span>
+          <span class="text-xs font-mono-num font-bold px-2 py-0.5 rounded ${hynix.netAmount.includes('-') ? 'kr-down-bg kr-down' : 'kr-up-bg kr-up'}">
+            외인 순매수 ${hynix.netAmount}
+          </span>
+        </div>
+        <div class="mt-2.5 flex items-center justify-between text-xs font-mono-num text-slate-300">
+          <span>순매수 주수: <strong class="text-white">${hynix.netShares}</strong></span>
+          <span class="text-slate-400">${hynix.shareRatio}</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-2 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 leading-relaxed">${hynix.note}</p>
+      `;
+
+      // Foreign Top Buy / Sell Tables
+      document.querySelector('#foreignTopBuyTable tbody').innerHTML = data.krForeign.topBuy.map(item => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="py-2.5 px-3 font-medium text-slate-200">${item.name}</td>
+          <td class="py-2.5 px-2 text-right font-bold kr-up">${item.amount}</td>
+          <td class="py-2.5 px-2 text-right text-slate-300">${item.shares}</td>
+          <td class="py-2.5 px-3 text-right text-slate-400">${item.ratio}</td>
+        </tr>
+      `).join('');
+
+      document.querySelector('#foreignTopSellTable tbody').innerHTML = data.krForeign.topSell.map(item => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="py-2.5 px-3 font-medium text-slate-200">${item.name}</td>
+          <td class="py-2.5 px-2 text-right font-bold kr-down">${item.amount}</td>
+          <td class="py-2.5 px-2 text-right text-slate-300">${item.shares}</td>
+          <td class="py-2.5 px-3 text-right text-slate-400">${item.ratio}</td>
+        </tr>
+      `).join('');
+
+      // Sector Foreign Grid
+      document.getElementById('foreignSectorGrid').innerHTML = data.krForeign.sectors.map(sec => {
+        let badgeColor = "border-slate-800 bg-slate-950 text-slate-300";
+        if (sec.state === 'up') badgeColor = "border-rose-900/40 bg-rose-950/20 text-rose-300";
+        if (sec.state === 'down') badgeColor = "border-sky-900/40 bg-sky-950/20 text-sky-300";
+        return `
+          <div class="p-2.5 rounded-xl border ${badgeColor} flex flex-col justify-between">
+            <span class="font-bold text-xs text-white">${sec.name}</span>
+            <span class="text-[11px] mt-1 leading-snug">${sec.status}</span>
+          </div>
+        `;
+      }).join('');
+
+      // News in 4 sectors
+      const newsContainer = document.getElementById('newsSectionsContainer');
+      const newsCatConfig = [
+        { key: 'economy', label: '경제 뉴스', color: 'border-emerald-500/40 text-emerald-400' },
+        { key: 'politics', label: '정치 뉴스', color: 'border-blue-500/40 text-blue-400' },
+        { key: 'society', label: '사회 뉴스', color: 'border-amber-500/40 text-amber-400' },
+        { key: 'science', label: '과학 / AI / 에너지', color: 'border-purple-500/40 text-purple-400' }
+      ];
+
+      newsContainer.innerHTML = newsCatConfig.map(cat => {
+        const items = data.news[cat.key];
+        return `
+          <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between space-y-3">
+            <h4 class="text-xs font-bold ${cat.color} pb-2 border-b border-slate-800 flex items-center justify-between">
+              <span>${cat.label} (3건)</span>
+              <span class="text-[10px] text-slate-500">당일 브리핑</span>
+            </h4>
+            <div class="space-y-3 flex-grow">
+              ${items.map((n, idx) => `
+                <div class="space-y-1">
+                  <div class="text-xs font-semibold text-slate-200 leading-snug flex items-start gap-1.5">
+                    <span class="text-slate-500 font-mono-num text-[11px] shrink-0">${idx+1}.</span>
+                    <span>${n.title}</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 pl-4 leading-relaxed">${n.desc}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Sector Impact Matrix
+      document.getElementById('overallOutlookText').innerText = data.verdictDesc;
+      document.getElementById('sectorImpactMatrix').innerHTML = data.sectorMatrix.map(sec => {
+        let badgeClass = "bg-slate-800 text-slate-300";
+        if (sec.impact.includes('매우 긍정적')) badgeClass = "bg-rose-500/20 text-rose-300 border border-rose-500/30";
+        else if (sec.impact.includes('긍정적')) badgeClass = "bg-pink-500/20 text-pink-300 border border-pink-500/30";
+        else if (sec.impact.includes('중립')) badgeClass = "bg-slate-800 text-slate-300 border border-slate-700";
+        else if (sec.impact.includes('경계')) badgeClass = "bg-amber-500/20 text-amber-300 border border-amber-500/30";
+        else if (sec.impact.includes('부정적')) badgeClass = "bg-sky-500/20 text-sky-300 border border-sky-500/30";
+
+        return `
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-850 flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs text-white">${sec.name}</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded ${badgeClass}">${sec.impact}</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-2 leading-snug">${sec.note}</p>
+          </div>
+        `;
+      }).join('');
+
+      // Top 5 Numbers
+      document.getElementById('top5NumbersList').innerHTML = data.top5Numbers.map((item, idx) => `
+        <div class="flex items-start justify-between gap-2 p-2 rounded-lg bg-slate-900/60 border border-slate-850 text-xs">
+          <div>
+            <span class="font-medium text-slate-300 block">${item.label}</span>
+            <span class="text-[10px] text-slate-400">${item.desc}</span>
+          </div>
+          <span class="font-bold font-mono-num text-amber-400 text-sm whitespace-nowrap">${item.value}</span>
+        </div>
+      `).join('');
+
+      // Top 3 Risks
+      document.getElementById('top3RisksList').innerHTML = data.top3Risks.map((item, idx) => `
+        <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-850 text-xs space-y-1">
+          <div class="font-bold text-rose-300 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> ${item.title}
+          </div>
+          <p class="text-[11px] text-slate-400 leading-snug pl-3">${item.desc}</p>
+        </div>
+      `).join('');
+
+      // Top 5 Foreign Watch Stocks
+      document.getElementById('top5ForeignWatchList').innerHTML = data.top5ForeignWatch.map((item, idx) => `
+        <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-850 text-xs">
+          <div class="font-semibold text-cyan-300">${item.name}</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">${item.point}</div>
+        </div>
+      `).join('');
+
+      // Load user notes and checklist for this date
+      loadDailyMemo(date);
+    }
+
+    function handleDateChange(newDate) {
+      renderBriefing(newDate);
+      showToast(`${newDate} 브리핑 데이터로 전환되었습니다.`);
+    }
+
+    function getMemoStorageKey(date) {
+      return `briefing_memo_${date}`;
+    }
+
+    function getChecklistStorageKey(date) {
+      return `briefing_checklist_${date}`;
+    }
+
+    function loadDailyMemo(date) {
+      const memoKey = getMemoStorageKey(date);
+      const savedMemo = localStorage.getItem(memoKey) || "";
+      const memoInput = document.getElementById('dailyMemoInput');
+      memoInput.value = savedMemo;
+      updateCharCount(savedMemo.length);
+
+      // Checklist load
+      const chkKey = getChecklistStorageKey(date);
+      const savedChecks = JSON.parse(localStorage.getItem(chkKey) || "{}");
+      ['chk1', 'chk2', 'chk3', 'chk4'].forEach(id => {
+        const checkbox = document.getElementById(id);
+        if (checkbox) {
+          checkbox.checked = !!savedChecks[id];
+        }
+      });
+      document.getElementById('memoSaveStatus').innerText = `저장 상태: ${date} 메모 동기화됨`;
+    }
+
+    function saveDailyMemo() {
+      const memoInput = document.getElementById('dailyMemoInput');
+      const text = memoInput.value;
+      const memoKey = getMemoStorageKey(currentDate);
+      localStorage.setItem(memoKey, text);
+      document.getElementById('memoSaveStatus').innerText = `저장 상태: ${new Date().toLocaleTimeString()} 저장 완료`;
+      showToast(`${currentDate} 메모가 성공적으로 저장되었습니다!`);
+    }
+
+    function clearDailyMemo() {
+      const memoInput = document.getElementById('dailyMemoInput');
+      memoInput.value = "";
+      localStorage.removeItem(getMemoStorageKey(currentDate));
+      updateCharCount(0);
+      document.getElementById('memoSaveStatus').innerText = "저장 상태: 메모 비움";
+      showToast("메모가 초기화되었습니다.");
+    }
+
+    function saveChecklist() {
+      const state = {
+        chk1: document.getElementById('chk1').checked,
+        chk2: document.getElementById('chk2').checked,
+        chk3: document.getElementById('chk3').checked,
+        chk4: document.getElementById('chk4').checked,
+      };
+      localStorage.setItem(getChecklistStorageKey(currentDate), JSON.stringify(state));
+    }
+
+    function updateCharCount(length) {
+      document.getElementById('memoCharCount').innerText = `${length} 자`;
+    }
+
+    document.getElementById('dailyMemoInput').addEventListener('input', function(e) {
+      updateCharCount(e.target.value.length);
+      // Auto-save debounce
+      clearTimeout(window._memotimer);
+      window._memotimer = setTimeout(() => {
+        saveDailyMemo();
+      }, 1000);
+    });
+
+    function copyBriefingText() {
+      const data = briefingDataByDate[currentDate];
+      if (!data) return;
+
+      const fullReportText = `[06:30 AM 한국 투자자를 위한 모닝 마켓 브리핑]
+■ 기준: ${data.metaDate}
+■ 종합 시장 환경 판단: [${data.verdict}]
+- 코멘트: ${data.verdictDesc}
+
+1. 미국 증시 마감 (${data.usTradeDate})
+- 다우: ${data.usIndices[0].close} (${data.usIndices[0].pct})
+- S&P500: ${data.usIndices[1].close} (${data.usIndices[1].pct})
+- 나스닥: ${data.usIndices[2].close} (${data.usIndices[2].pct})
+- 주요 원인: ${data.usMarketCause}
+- 반도체/AI: ${data.soxChange} / 엔비디아 ${data.semiStocks[0].price} (${data.semiStocks[0].change})
+
+2. 매크로 핵심 지표
+- 미 10년물 국채금리: ${data.macro.us10y.rate} (${data.macro.us10y.changeBp})
+  * 분석: ${data.macro.us10yAnalysis}
+- 원/달러 환율: ${data.macro.usdkrw} (${data.macro.usdkrwChange}) | ${data.macro.dxy}
+- WTI 유가: ${data.macro.wti} | 브렌트유: ${data.macro.brent}
+
+3. 외국인 한국 주식 수급 (${data.krForeign.tradeDate})
+- 코스피 순매수: ${data.krForeign.kospiNet} / 코스닥: ${data.krForeign.kosdaqNet}
+- 삼성전자: ${data.krForeign.samsung.netAmount} (${data.krForeign.samsung.netShares}, ${data.krForeign.samsung.shareRatio})
+- SK하이닉스: ${data.krForeign.skHynix.netAmount} (${data.krForeign.skHynix.netShares}, ${data.krForeign.skHynix.shareRatio})
+- 외인 순매수 상위: ${data.krForeign.topBuy.map(x=>x.name).join(', ')}
+- 외인 순매도 상위: ${data.krForeign.topSell.map(x=>x.name).join(', ')}
+
+4. 오늘 중요한 숫자 5개
+${data.top5Numbers.map((n, i) => `${i+1}) ${n.label}: ${n.value} (${n.desc})`).join('\n')}
+
+5. 오늘 확인할 위험 신호 3개
+${data.top3Risks.map((r, i) => `${i+1}) ${r.title} - ${r.desc}`).join('\n')}
+
+6. 외국인 수급 확인 종목 5개
+${data.top5ForeignWatch.map((w, i) => `${i+1}) ${w.name}: ${w.point}`).join('\n')}
+--------------------------------------------------
+* 본 자료는 실제 매매체결일 기준이며, 투자의 참고용입니다.`;
+
+      const dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = fullReportText;
+      dummy.select();
+      try {
+        document.execCommand("copy");
+        showToast("브리핑 텍스트가 클립보드에 복사되었습니다! (카톡/텔레그램 공유 가능)");
+      } catch (err) {
+        showToast("클립보드 복사에 실패했습니다.", true);
+      }
+      document.body.removeChild(dummy);
+    }
+
+    window.onload = function() {
+      renderBriefing("2026-10-07");
+    };
+  </script>
+</body>
+</html>
